@@ -278,7 +278,6 @@ public class TestSinkWriter {
     return result.writerResults();
   }
 
-
   @Test
   public void testErrorToleranceAll() {
     IcebergSinkConfig config = mock(IcebergSinkConfig.class);
@@ -301,8 +300,8 @@ public class TestSinkWriter {
 
     Map<String, Object> badValue = ImmutableMap.of("id", "abc");
     assertThatThrownBy(() -> sinkWriterTest(badValue, config))
-            .isInstanceOf(DataException.class)
-            .hasMessage("An error occurred converting record, topic: topic, partition, 1, offset: 100");
+        .isInstanceOf(DataException.class)
+        .hasMessage("An error occurred converting record, topic: topic, partition, 1, offset: 100");
   }
 
   @Test
@@ -315,8 +314,8 @@ public class TestSinkWriter {
 
     Map<String, Object> badValue = ImmutableMap.of("id", "abc");
     assertThatThrownBy(() -> sinkWriterTest(badValue, config))
-            .isInstanceOf(DataException.class)
-            .hasMessage("An error occurred converting record, topic: topic, partition, 1, offset: 100, record: {id=abc}");
+        .isInstanceOf(DataException.class)
+        .hasMessage(
+            "An error occurred converting record, topic: topic, partition, 1, offset: 100, record: {id=abc}");
   }
-
 }
