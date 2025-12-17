@@ -20,7 +20,6 @@ package org.apache.iceberg.io;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Map;
 import org.apache.iceberg.DataFile;
