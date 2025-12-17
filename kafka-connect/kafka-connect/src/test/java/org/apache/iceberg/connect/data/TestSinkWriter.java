@@ -172,7 +172,7 @@ public class TestSinkWriter {
   }
 
   private List<IcebergWriterResult> sinkWriterTest(
-          Map<String, Object> value, IcebergSinkConfig config) {
+      Map<String, Object> value, IcebergSinkConfig config) {
     return sinkWriterTest(value, config, null);
   }
 
@@ -225,7 +225,6 @@ public class TestSinkWriter {
     when(config.tableConfig(any())).thenReturn(mock(TableSinkConfig.class));
     when(config.errorTolerance()).thenReturn(ErrorTolerance.ALL.toString());
     when(config.errorLogIncludeMessages()).thenReturn(true);
-
 
     Map<String, Object> value = ImmutableMap.of("id", 1);
     List<IcebergWriterResult> writerResults = sinkWriterTest(value, config);
