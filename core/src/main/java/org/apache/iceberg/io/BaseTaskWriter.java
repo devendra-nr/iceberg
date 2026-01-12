@@ -348,21 +348,17 @@ public abstract class BaseTaskWriter<T> implements TaskWriter<T> {
           currentWriter.close();
 
           if (currentRows == 0L) {
-            try {
-              io.deleteFile(currentFile.encryptingOutputFile());
-            } catch (UncheckedIOException e) {
-              // the file may not have been created or cannot be deleted, and it isn't worth failing
-              // the job to clean up, skip deleting
-              Tasks.foreach(currentFile.encryptingOutputFile())
-                  .suppressFailureWhenFinished()
-                  .onFailure(
-                      (file, exc) ->
-                          LOG.warn(
-                              "Failed to delete the uncommitted empty file during writer clean up: {}",
-                              file,
-                              exc))
-                  .run(io::deleteFile);
-            }
+            // the file may not have been created or cannot be deleted, and it isn't worth failing
+            // the job to clean up, skip deleting
+            Tasks.foreach(currentFile.encryptingOutputFile())
+                .suppressFailureWhenFinished()
+                .onFailure(
+                    (file, exc) ->
+                        LOG.warn(
+                            "Failed to delete the uncommitted empty file during writer clean up: {}",
+                            file,
+                            exc))
+                .run(io::deleteFile);
           } else {
             complete(currentWriter);
           }
